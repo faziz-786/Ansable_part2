@@ -1,0 +1,11 @@
+---
+- hosts: left_leafs
+  name: copy MLAG to left in both DCs
+  tasks:
+  - name: Copy MLAG Left
+    template:
+      src: "{{lookup('env','PWD')}}/templates/MLAG-Left.j2"
+      dest: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}/{{inventory_hostname}}_MLAG_left.eos"
+  - name: Upload config
+    eos_config:
+      src: "{{lookup('env','PWD')}}/configs/{{inventory_hostname}}/{{inventory_hostname}}_MLAG_left.eos"
